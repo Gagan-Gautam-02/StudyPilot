@@ -1,9 +1,8 @@
-from langchain_google_vertexai import ChatVertexAI
-from langgraph.prebuilt import create_react_agent
-from app.config import config
-from app.tools.web_tools import get_web_tools
-
 def get_study_agent_executor():
+    from langchain_google_vertexai import ChatVertexAI
+    from langgraph.prebuilt import create_react_agent
+    from app.config import config
+    from app.tools.web_tools import get_web_tools
     llm = ChatVertexAI(model_name="gemini-2.5-flash", project=config.PROJECT_ID)
     tools = get_web_tools()
     agent_executor = create_react_agent(llm, tools)

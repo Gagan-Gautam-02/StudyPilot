@@ -1,9 +1,8 @@
-from langchain_google_vertexai import ChatVertexAI
-from langgraph.prebuilt import create_react_agent
-from app.config import config
-from app.tools.firestore_tools import add_task, get_pending_tasks, complete_task
-
 def get_task_agent_executor():
+    from langchain_google_vertexai import ChatVertexAI
+    from langgraph.prebuilt import create_react_agent
+    from app.config import config
+    from app.tools.firestore_tools import add_task, get_pending_tasks, complete_task
     llm = ChatVertexAI(model_name="gemini-2.5-flash", project=config.PROJECT_ID)
     tools = [add_task, get_pending_tasks, complete_task]
     agent_executor = create_react_agent(llm, tools)
