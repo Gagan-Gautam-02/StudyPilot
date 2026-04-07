@@ -8,8 +8,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy the app code
+# Copy the app code and runner
 COPY app/ ./app/
+COPY run.py .
 
 # Expose port 8080 (Cloud Run default)
 EXPOSE 8080
