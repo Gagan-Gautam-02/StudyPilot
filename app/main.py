@@ -15,12 +15,16 @@ import os
 
 # Initialize Firebase Admin securely using the same service account
 if not firebase_admin._apps:
-    if config.GOOGLE_APPLICATION_CREDENTIALS and os.path.exists(config.GOOGLE_APPLICATION_CREDENTIALS):
-        cred = credentials.Certificate(config.GOOGLE_APPLICATION_CREDENTIALS)
-        firebase_admin.initialize_app(cred)
-    else:
-        # Fallback to Google Cloud Native Authentication Environment Variables
-        firebase_admin.initialize_app()
+    try:
+        if config.GOOGLE_APPLICATION_CREDENTIALS and os.path.exists(config.GOOGLE_APPLICATION_CREDENTIALS):
+            cred = credentials.Certificate(config.GOOGLE_APPLICATION_CREDENTIALS)
+            firebase_admin.initialize_app(cred)
+        else:
+            # Fallback to Google Cloud Native Authentication Environment Variables
+            firebase_admin.initialize_app()
+        print("Firebase Admin strictly initialized on Boot")
+    except Exception as e:
+        print(f"CRITICAL WARNING: Firebase Admin failed to initialize on Boot. Authentication features will fail. Error: {e}")
 
 security = HTTPBearer()
 
