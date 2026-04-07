@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgentX StudyFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <div class="logo-icon">X</div>
+                <h2>AgentX</h2>
+            </div>
+            
+            <div class="sidebar-menu">
+                <div class="menu-item active" id="menu-study-flow">Study Flow</div>
+                <div class="menu-item" id="menu-my-tasks">My Tasks</div>
+                <div class="menu-item" id="menu-schedule">Study Schedule</div>
+            </div>
+            
+            <div class="user-profile">
+                <div class="avatar">👨‍🎓</div>
+                <span>Student</span>
+            </div>
+        </aside>
+
+        <!-- Main Workspace -->
+        <main class="chat-workspace">
+            <header class="chat-header">
+                <h1 id="workspace-title">Study Assistant</h1>
+                <p id="workspace-subtitle">Powered by LangGraph & Vertex AI</p>
+            </header>
+            
+            <!-- Study Flow (Chat) View -->
+            <div id="view-study-flow" class="view-section active">
+                <div class="chat-container" id="chat-container">
+                    <div class="message ai">
+                        <div class="message-bubble">
+                            Hello! I am your AI Study Assistant. I can help you understand concepts, schedule your tasks, or manage your to-do lists. How can I help you study today?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-container">
+                    <input type="text" id="user-input" placeholder="Ask to explain a topic, or add a task..." autocomplete="off">
+                    <button id="send-btn" aria-label="Send Message">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Task Dashboard View -->
+            <div id="view-my-tasks" class="view-section hidden">
+                <div class="dashboard-container" id="tasks-content">
+                    <div class="dashboard-placeholder">Pulling your pending tasks securely from Firestore...</div>
+                </div>
+            </div>
+
+            <!-- Schedule Dashboard View -->
+            <div id="view-schedule" class="view-section hidden">
+                <div class="dashboard-container" id="schedule-content">
+                    <div class="dashboard-placeholder">Generating your optimized study schedule via Vertex AI...</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Render Markdown -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
