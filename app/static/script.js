@@ -2,8 +2,7 @@ const chatContainer = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
 const sendBtn = document.getElementById('send-btn');
 
-// Using a hardcoded ID for this prototype phase
-const CURRENT_USER_ID = "student-123";
+// Authentication dynamically injected from app.html
 
 function appendMessage(sender, content, agentName = null) {
     const msgDiv = document.createElement('div');
@@ -61,10 +60,10 @@ async function sendMessage() {
         const response = await fetch('/api/chat', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.AUTH_TOKEN}`
             },
             body: JSON.stringify({
-                user_id: CURRENT_USER_ID,
                 message: message
             })
         });
@@ -118,8 +117,11 @@ async function fetchDashboardData(prompt, containerId, loadingText) {
     try {
         const response = await fetch('/api/chat', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ user_id: CURRENT_USER_ID, message: prompt })
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${window.AUTH_TOKEN}`
+            },
+            body: JSON.stringify({ message: prompt })
         });
         const data = await response.json();
         

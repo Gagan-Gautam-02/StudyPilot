@@ -1,79 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgentX StudyFlow</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>AgentX StudyFlow | Master Your Learning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="landing.css">
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="logo-container">
-                <div class="logo-icon">X</div>
-                <h2>AgentX</h2>
-            </div>
-            
-            <div class="sidebar-menu">
-                <div class="menu-item active" id="menu-study-flow">Study Flow</div>
-                <div class="menu-item" id="menu-my-tasks">My Tasks</div>
-                <div class="menu-item" id="menu-schedule">Study Schedule</div>
-            </div>
-            
-            <div class="user-profile">
-                <div class="avatar">👨‍🎓</div>
-                <span>Student</span>
-            </div>
-        </aside>
 
-        <!-- Main Workspace -->
-        <main class="chat-workspace">
-            <header class="chat-header">
-                <h1 id="workspace-title">Study Assistant</h1>
-                <p id="workspace-subtitle">Powered by LangGraph & Vertex AI</p>
-            </header>
-            
-            <!-- Study Flow (Chat) View -->
-            <div id="view-study-flow" class="view-section active">
-                <div class="chat-container" id="chat-container">
-                    <div class="message ai">
-                        <div class="message-bubble">
-                            Hello! I am your AI Study Assistant. I can help you understand concepts, schedule your tasks, or manage your to-do lists. How can I help you study today?
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-container">
-                    <input type="text" id="user-input" placeholder="Ask to explain a topic, or add a task..." autocomplete="off">
-                    <button id="send-btn" aria-label="Send Message">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="22" y1="2" x2="11" y2="13"></line>
-                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Task Dashboard View -->
-            <div id="view-my-tasks" class="view-section hidden">
-                <div class="dashboard-container" id="tasks-content">
-                    <div class="dashboard-placeholder">Pulling your pending tasks securely from Firestore...</div>
-                </div>
-            </div>
-
-            <!-- Schedule Dashboard View -->
-            <div id="view-schedule" class="view-section hidden">
-                <div class="dashboard-container" id="schedule-content">
-                    <div class="dashboard-placeholder">Generating your optimized study schedule via Vertex AI...</div>
-                </div>
-            </div>
-        </main>
+    <!-- Dynamic Background Elements -->
+    <div class="blob-container">
+        <div class="blob one"></div>
+        <div class="blob two"></div>
     </div>
-    
-    <!-- Render Markdown -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script src="script.js"></script>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-x">X</span> AgentX
+        </div>
+        <ul class="nav-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <a href="app.html" class="cta-trigger" style="padding: 10px 25px; font-size: 0.95rem;">Launch App</a>
+    </nav>
+
+    <!-- Main Hero Banner -->
+    <section class="hero">
+        <h1>Master Your Study Flow with AI</h1>
+        <p class="subtitle">Experience the ultimate multimodal productivity assistant powered by LangGraph, Google Cloud Vertex AI, and Native Firestore.</p>
+        
+        <a href="#" id="open-auth-btn" class="cta-trigger">Get Started Now</a>
+        
+        <div class="auth-container" id="auth-box" style="display: none;">
+            <form id="auth-form" class="auth-form">
+                <input type="email" id="auth-email" placeholder="Email address" required>
+                <input type="password" id="auth-password" placeholder="Password" required>
+                <div class="auth-buttons">
+                    <button type="submit" id="btn-signin" class="cta-trigger sm-btn">Log In</button>
+                    <button type="button" id="btn-signup" class="cta-trigger secondary sm-btn">Sign Up</button>
+                </div>
+            </form>
+            <div class="auth-divider"><span>OR</span></div>
+            <a href="#" id="login-btn" class="cta-trigger google-btn">
+                <svg viewBox="0 0 24 24" width="18" height="18" style="margin-right: 8px;"><path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+                Sign in with Google
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2 class="section-title">Powerful Capabilities</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🧠</div>
+                <h3>Multi-Agent Architecture</h3>
+                <p>Equipped with specialized Study, Task, and Scheduler Agents that dynamically route intent to deliver
+                    highly specific educational guidance.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3>Firestore Synchronized</h3>
+                <p>Your tasks are instantly preserved in Google Cloud Native Firestore, ensuring your syllabus and
+                    pending assignments are perfectly secured.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📅</div>
+                <h3>Dynamic Time-Blocking</h3>
+                <p>Our sophisticated Vertex AI engine reads your active homework assignments to generate optimized,
+                    realistic study schedules on demand.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 AgentX StudyPilot. Deployed autonomously via Google AI.</p>
+    </footer>
+
+    <!-- Firebase SDK Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // [USER CONFIG REQUIRED HERE]
+        const firebaseConfig = {
+            apiKey: "AIzaSyBu9O9TabFvGXJSTqaQvjTuwetQ7lafmA8",
+            authDomain: "studypilot-492413.firebaseapp.com",
+            projectId: "studypilot-492413",
+            storageBucket: "studypilot-492413.firebasestorage.app",
+            messagingSenderId: "445634431006",
+            appId: "1:445634431006:web:34ffc38e4aaeb65847060f",
+            measurementId: "G-0W1N04FEB8"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        const loginBtn = document.getElementById('login-btn');
+
+        const openAuthBtn = document.getElementById('open-auth-btn');
+        const authBox = document.getElementById('auth-box');
+
+        if(openAuthBtn) {
+            openAuthBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openAuthBtn.style.display = 'none';
+                authBox.style.display = 'flex';
+            });
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if(openAuthBtn) openAuthBtn.style.display = 'none';
+                if(authBox) {
+                    authBox.style.display = 'flex';
+                    authBox.innerHTML = `
+                        <button class="cta-trigger google-btn" onclick="window.location.href='app.html'">Enter Dashboard as ${user.email}</button>
+                        <button class="cta-trigger secondary sm-btn" id="landing-logout" style="margin-top: 10px;">Log Out</button>
+                    `;
+                    document.getElementById('landing-logout').onclick = (e) => {
+                        e.preventDefault();
+                        signOut(auth).then(() => {
+                            window.location.reload();
+                        });
+                    };
+                }
+            }
+        });
+
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            signInWithPopup(auth, provider).then((result) => {
+                window.location.href = "app.html";
+            }).catch((error) => {
+                alert("Google Login Failed: " + error.message);
+            });
+        });
+
+        const emailInput = document.getElementById('auth-email');
+        const passInput = document.getElementById('auth-password');
+        const btnSignUp = document.getElementById('btn-signup');
+        const authForm = document.getElementById('auth-form');
+
+        if(authForm) {
+            // Handle Email/Password Login
+            authForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = emailInput.value;
+                const pass = passInput.value;
+                signInWithEmailAndPassword(auth, email, pass).then(() => {
+                    window.location.href = "app.html";
+                }).catch(error => { alert("Login Error: " + error.message); });
+            });
+
+            // Handle Email/Password Signup
+            btnSignUp.addEventListener('click', () => {
+                const email = emailInput.value;
+                const pass = passInput.value;
+                if(!email || !pass) { alert("Please enter both email and password!"); return; }
+                createUserWithEmailAndPassword(auth, email, pass).then(() => {
+                    window.location.href = "app.html";
+                }).catch(error => { alert("Signup Error: " + error.message); });
+            });
+        }
+    </script>
 </body>
+
 </html>
