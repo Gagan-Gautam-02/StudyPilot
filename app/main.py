@@ -11,10 +11,16 @@ from app.config import config
 
 app = FastAPI(title="AgentX StudyFlow", version="1.0.0")
 
+import os
+
 # Initialize Firebase Admin securely using the same service account
 if not firebase_admin._apps:
-    cred = credentials.Certificate(config.GOOGLE_APPLICATION_CREDENTIALS)
-    firebase_admin.initialize_app(cred)
+    if config.GOOGLE_APPLICATION_CREDENTIALS and os.path.exists(config.GOOGLE_APPLICATION_CREDENTIALS):
+        cred = credentials.Certificate(config.GOOGLE_APPLICATION_CREDENTIALS)
+        firebase_admin.initialize_app(cred)
+    else:
+        # Fallback to Google Cloud Native Authentication Environment Variables
+        firebase_admin.initialize_app()
 
 security = HTTPBearer()
 
