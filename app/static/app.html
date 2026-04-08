@@ -19,9 +19,10 @@
             </div>
 
             <div class="sidebar-menu">
-                <div class="menu-item active" id="menu-study-flow">Study Flow</div>
-                <div class="menu-item" id="menu-my-tasks">My Tasks</div>
-                <div class="menu-item" id="menu-schedule">Study Schedule</div>
+                <div class="menu-item active" id="menu-study-flow">💬 Study Flow</div>
+                <div class="menu-item" id="menu-my-tasks">✅ My Tasks</div>
+                <div class="menu-item" id="menu-schedule">📅 Study Schedule</div>
+                <div class="menu-item" id="menu-stats">📊 My Stats</div>
             </div>
 
             <div class="user-profile">
@@ -75,6 +76,45 @@
             <div id="view-schedule" class="view-section hidden">
                 <div class="dashboard-container" id="schedule-content">
                     <div class="dashboard-placeholder">Generating your optimized study schedule via Vertex AI...</div>
+                </div>
+            </div>
+
+            <!-- Stats Dashboard View -->
+            <div id="view-stats" class="view-section hidden">
+                <div class="stats-grid" id="stats-grid">
+                    <div class="stat-card" id="stat-total">
+                        <div class="stat-icon">📋</div>
+                        <div class="stat-value" id="val-total">—</div>
+                        <div class="stat-label">Total Tasks</div>
+                    </div>
+                    <div class="stat-card" id="stat-completed">
+                        <div class="stat-icon">✅</div>
+                        <div class="stat-value" id="val-completed">—</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                    <div class="stat-card" id="stat-pending">
+                        <div class="stat-icon">⏳</div>
+                        <div class="stat-value" id="val-pending">—</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card" id="stat-ontime">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-value" id="val-ontime">—</div>
+                        <div class="stat-label">Completed On Time</div>
+                    </div>
+                    <div class="stat-card" id="stat-overdue">
+                        <div class="stat-icon">⚠️</div>
+                        <div class="stat-value" id="val-overdue">—</div>
+                        <div class="stat-label">Completed Late</div>
+                    </div>
+                    <div class="stat-card stat-wide" id="stat-rate">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-label" style="margin-bottom:10px;">Completion Rate</div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+                        </div>
+                        <div class="stat-value" id="val-rate" style="margin-top:10px;">0%</div>
+                    </div>
                 </div>
             </div>
         </main>

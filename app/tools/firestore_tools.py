@@ -47,6 +47,7 @@ def get_pending_tasks(user_id: str) -> str:
 @tool
 def complete_task(task_id: str) -> str:
     """Marks a specific task as completed in Firestore."""
+    from datetime import datetime, timezone
     db = get_db()
     if not db:
         return "Error: Database is not connected."
@@ -55,6 +56,9 @@ def complete_task(task_id: str) -> str:
     doc = doc_ref.get()
     
     if doc.exists:
-        doc_ref.update({"status": "completed"})
+        doc_ref.update({
+            "status": "completed",
+            "completed_at": datetime.now(timezone.utc).isoformat()
+        })
         return f"Task {task_id} marked as completed."
     return f"Task {task_id} not found."

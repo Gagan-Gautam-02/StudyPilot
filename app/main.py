@@ -60,5 +60,61 @@ def chat_endpoint(request: ChatRequest, user_id: str = Depends(verify_token)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.get("/api/stats")
+def stats_endpoint(user_id: str = Depends(verify_token)):
+    """Returns task stats for the authenticated user."""
+    try:
+        from app.database import get_db
+        from google.cloud.firestore_v1.base_query import FieldFilter
+        from datetime import datetime, timezone
+        db = get_db()
+        if not db:
+            return {"total": 0, "pending": 0, "completed": 0, "on_time": 0, "overdue": 0}
+
+        all_tasks = list(db.collection("tasks").where(
+            filter=FieldFilter("user_id", "==", user_id)
+        ).stream())
+
+        total     = len(all_tasks)
+        pending   = 0
+        completed = 0
+        on_time   = 0
+        overdue   = 0
+        now       = datetime.now(timezone.utc)
+
+        for doc in all_tasks:
+            t = doc.to_dict()
+            status = t.get("status", "pending")
+            if status == "pending":
+                pending += 1
+            else:
+                completed += 1
+                due_raw   = t.get("due_date", "")
+                done_raw  = t.get("completed_at", "")
+                if due_raw and done_raw:
+                    try:
+                        due_dt  = datetime.fromisoformat(due_raw).replace(tzinfo=timezone.utc)
+                        done_dt = datetime.fromisoformat(done_raw)
+                        if done_dt.tzinfo is None:
+                            done_dt = done_dt.replace(tzinfo=timezone.utc)
+                        if done_dt <= due_dt:
+                            on_time += 1
+                        else:
+                            overdue += 1
+                    except Exception:
+                        pass
+
+        rate = round((completed / total * 100)) if total > 0 else 0
+        return {
+            "total": total,
+            "pending": pending,
+            "completed": completed,
+            "on_time": on_time,
+            "overdue": overdue,
+            "completion_rate": rate
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 # Mount static files for the frontend UI (must be at the bottom to avoid shadowing API routes)
 app.mount("/", StaticFiles(directory="app/static", html=True), name="static")
