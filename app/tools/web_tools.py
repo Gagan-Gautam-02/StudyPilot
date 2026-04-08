@@ -1,6 +1,5 @@
 from langchain_community.tools.wikipedia.tool import WikipediaQueryRun
 from langchain_community.utilities.wikipedia import WikipediaAPIWrapper
-from langchain_community.tools.ddg_search.tool import DuckDuckGoSearchRun
 from langchain_community.utilities.arxiv import ArxivAPIWrapper
 from langchain_core.tools import tool
 
@@ -8,10 +7,23 @@ from langchain_core.tools import tool
 api_wrapper = WikipediaAPIWrapper(top_k_results=2, doc_content_chars_max=1000)
 wikipedia_tool = WikipediaQueryRun(api_wrapper=api_wrapper)
 
-# DuckDuckGo Tool
-duckduckgo_tool = DuckDuckGoSearchRun()
+# DuckDuckGo Tool — using new ddgs package directly
+@tool
+def duckduckgo_tool(query: str) -> str:
+    """Searches the web using DuckDuckGo for current, general information about any topic."""
+    try:
+        from duckduckgo_search import DDGS
+        with DDGS() as ddgs:
+            results = list(ddgs.text(query, max_results=3))
+        if not results:
+            return "No results found."
+        return "\n\n".join(
+            f"**{r.get('title', '')}**\n{r.get('body', '')}" for r in results
+        )
+    except Exception as e:
+        return f"DuckDuckGo search unavailable: {e}"
 
-# ArXiv Tool wrapper
+# ArXiv Tool
 @tool
 def arxiv_tool(query: str) -> str:
     """Searches scientific, research, and academic articles on ArXiv. Use this for highly technical or academic research."""
