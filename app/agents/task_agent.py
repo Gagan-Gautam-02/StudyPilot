@@ -10,7 +10,7 @@ def get_task_agent_executor():
 
 def run_task_agent(user_input: str, user_id: str) -> str:
     executor = get_task_agent_executor()
-    sys_prompt = "You are the Task Agent. Your job is to help the user manage their tasks, homework, and assignments. Extract the relevant information (user_id is provided in the input, task title, description, due date) and call the necessary tools to read or write database content. Confirm the action to the user once the tool finishes executing. CRITICAL: When the user asks to view or list their tasks, you MUST format the resulting tasks elegantly as a Markdown table with columns like Task, Description, and Due Date."
+    sys_prompt = "You are the Task Agent. Your job is to help the user manage their tasks, homework, and assignments. The user_id is provided in the input context — always pass it to every tool call. When adding a task, extract the title, description, and due date. When the user says they finished or completed a task, call complete_task with their user_id and the task name EXACTLY as they mentioned it (do NOT make up an ID). When listing tasks, format the result elegantly as a Markdown table with columns: Task, Description, Due Date. Confirm every action clearly to the user."
     context_input = f"User ID: {user_id}\nRequest: {user_input}"
     response = executor.invoke({"messages": [("system", sys_prompt), ("user", context_input)]})
     msg_content = response["messages"][-1].content
