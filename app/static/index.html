@@ -100,11 +100,6 @@
                 <p><a href="mailto:gagangautam1595@gmail.com">gagangautam1595@gmail.com</a></p>
             </div>
             <div class="contact-card">
-                <div class="card-icon">🐙</div>
-                <h3>GitHub</h3>
-                <p><a href="https://github.com/Gagan-Gautam-02/StudyPilot" target="_blank">github.com/Gagan-Gautam-02/StudyPilot</a></p>
-            </div>
-            <div class="contact-card">
                 <div class="card-icon">🌐</div>
                 <h3>Live App</h3>
                 <p><a href="https://studypilot-445634431006.europe-west1.run.app" target="_blank">studypilot.run.app</a></p>
@@ -114,8 +109,28 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 StudyPilot. Built with ❤️ for students everywhere.</p>
+        <p>&copy; 2026 StudyPilot &mdash; Developed by <strong>AgentX</strong></p>
     </footer>
 
+    <!-- Scroll animation for feature cards -->
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    // Stagger each card slightly
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.card, .contact-card').forEach((card, i) => {
+            card.dataset.delay = i * 100;
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>

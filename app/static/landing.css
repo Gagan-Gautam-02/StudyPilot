@@ -185,11 +185,22 @@ body {
     backdrop-filter: blur(10px);
     padding: 40px 30px;
     border-radius: 20px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease, translate 0.6s ease;
+
+    /* Scroll animation — start hidden */
+    opacity: 0;
+    translate: 0 40px;
+}
+
+/* Card visible state (added by JS on scroll) */
+.card.visible {
+    opacity: 1;
+    translate: 0 0;
 }
 
 .card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(59,130,246,0.1);
 }
 
 .card-icon {
@@ -231,11 +242,21 @@ body {
     padding: 36px 28px;
     border-radius: 20px;
     text-align: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.6s ease, translate 0.6s ease;
+
+    /* Scroll animation — start hidden */
+    opacity: 0;
+    translate: 0 40px;
+}
+
+.contact-card.visible {
+    opacity: 1;
+    translate: 0 0;
 }
 
 .contact-card:hover {
     transform: translateY(-6px);
+    box-shadow: 0 16px 36px rgba(59,130,246,0.1);
 }
 
 .contact-card h3 {
